@@ -35,11 +35,14 @@ html, body {
 .ad-container {
     width: 90%;
     max-width: 600px;
-    margin-top: -50px;
-    position: relative;
+    position: fixed; /* Фиксированное позиционирование */
+    top: 40px; /* Отступ сверху, чтобы окно было под блоком .user-info */
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translateX(-50%); /* Точное центрирование */
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 999; /* Убедитесь, что окно поверх других элементов */
 }
 
 .ad-slider {
@@ -81,7 +84,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 200px; /* Увеличьте это значение, чтобы опустить иконки */
 }
 
 .button-row {
@@ -91,19 +94,25 @@ html, body {
 }
 
 .exit-button-container {
+    width: 120px; /* Фиксированная ширина контейнера */
+    height: 120px; /* Фиксированная высота контейнера */
     text-align: center;
     cursor: pointer;
     margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .exit-button-image {
-    width: 50px;
-    height: auto;
+    width: 60px; /* Увеличенный размер иконок */
+    height: 60px; /* Сохранение пропорций */
 }
 
 .exit-button-label {
-    margin-top: 5px;
-    font-size: 1em;
+    margin-top: 10px; /* Отступ между иконкой и текстом */
+    font-size: 1.2em; /* Увеличенный размер текста */
     color: white;
 }
 
