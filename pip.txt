@@ -1,0 +1,6 @@
+pip install sqlalchemy
+pip install flask-cors
+pip install aiogram
+
+
+python -m http.server 8000

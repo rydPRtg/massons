@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="user-info">
+        <div id="username"></div>
+        <div id="balance"></div>
+    </div>
+    <!-- Новый блок для рекламных картинок -->
+    <div class="ad-container">
+        <div class="ad-slider">
+            <img src="images/ad1.jpg" alt="Реклама 1" class="ad-image">
+            <img src="images/ad2.jpg" alt="Реклама 2" class="ad-image">
+            <img src="images/ad3.jpg" alt="Реклама 3" class="ad-image">
+            <img src="images/ad4.jpg" alt="Реклама 4" class="ad-image">
+        </div>
+        <div class="ad-navigation">
+            <span class="ad-dot active" data-index="0"></span>
+            <span class="ad-dot" data-index="1"></span>
+            <span class="ad-dot" data-index="2"></span>
+            <span class="ad-dot" data-index="3"></span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="button-row">
+            <div class="exit-button-container" id="exitButton1Container">
+                <img src="images/exit.png" alt="Слот-барабан" class="exit-button-image">
+                <div class="exit-button-label">Слот-барабан</div>
+            </div>
+            <div class="exit-button-container" id="exitButton2Container">
+                <img src="images/exit2.png" alt="Мины" class="exit-button-image">
+                <div class="exit-button-label">Мины</div>
+            </div>
+        </div>
+        <div class="button-row">
+            <div class="exit-button-container" id="exitButton3Container">
+                <img src="images/exit3.png" alt="Авиатор" class="exit-button-image">
+                <div class="exit-button-label">Авиатор</div>
+            </div>
+            <div class="exit-button-container" id="exitButton4Container">
+                <img src="images/exit4.png" alt="Блэкджек 21" class="exit-button-image">
+                <div class="exit-button-label">Блэкджек 21</div>
+            </div>
+        </div>
+        <div class="button-row">
+            <div class="exit-button-container" id="exitButton5Container">
+                <img src="images/exit5.png" alt="Новая игра 5" class="exit-button-image">
+                <div class="exit-button-label">Новая игра 5</div>
+            </div>
+            <div class="exit-button-container" id="exitButton6Container">
+                <img src="images/exit6.png" alt="Новая игра 6" class="exit-button-image">
+                <div class="exit-button-label">Новая игра 6</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <button class="footer-button" id="profileButton">Профиль</button>
+        <button class="footer-button" id="menuButton">Меню</button>
+        <button class="footer-button" id="promotionsButton">Акции</button>
+    </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <iframe id="profileFrame" src="prolil/profil.html" frameborder="0"></iframe>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

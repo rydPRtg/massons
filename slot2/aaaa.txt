@@ -1,0 +1,262 @@
+/*
+ * Some general styling
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --item-height: 60px; /* Уменьшаем высоту иконок */
+}
+
+body {
+    background-color: #444;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Изменяем на flex-start */
+    height: 100vh;
+    flex-direction: column;
+    position: relative;
+    background-image: url('items/background.jpg'); /* Ссылка на ваш фон */
+    background-size: cover;
+    background-position: center;
+}
+
+/*
+ * Style the user info
+ */
+
+.user-info {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: transparent;
+}
+
+.user-info-item {
+    color: white;
+    font-size: 1.2em;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px; /* Adjusted to account for the user-info height */
+    margin-bottom: auto; /* Добавляем автоматический нижний отступ */
+}
+
+/*
+ * Style the slot machine box
+ */
+
+#container {
+    background-color: transparent; /* Убираем фон */
+    padding: 0;
+    box-shadow: none;
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 290px;
+    border-radius: 0; /* Убираем скругленные углы */
+}
+
+.window {
+    transform: translateX(40px); /* Сдвигает барабаны на 20px вправо */
+    position: relative;
+    overflow: hidden;
+    height: calc(3 * var(--item-height));
+}
+
+.window::before, .window::after {
+    content: none; /* Убираем градиенты */
+}
+
+.window-border {
+    padding: 0;
+    background-image: none;
+    box-shadow: none;
+}
+
+/*
+ * Reels and icon styling
+ */
+
+.icon {
+    width: 60px; /* Уменьшаем ширину иконок */
+    height: var(--item-height);
+    display: block;
+    position: relative;
+}
+
+.outer-col {
+    overflow-y: hidden;
+    width: 90px; /* Уменьшаем ширину колонок */
+    float: left;
+    background-color: transparent; /* Убираем фон барабанов */
+    height: calc(var(--item-height) * 3);
+}
+
+.outer-spacer {
+    width: 20px; /* Увеличиваем ширину промежутка между барабанами */
+    height: 100%;
+    float: left;
+    border-right: none;
+    background-image: none;
+}
+
+.col {
+    padding: 0 10px;
+    will-change: true;
+    transform: translateY(calc(-100% + var(--item-height) * 3));
+}
+
+.col img {
+    width: 100%;
+    height: auto;
+    margin: 10px 0;
+    position: relative;
+    z-index: 3;
+}
+
+/* shadow effect behind the items */
+.col .icon::after {
+    content: none; /* Убираем тень */
+}
+
+/*
+ * Spinning animation
+ */
+
+#container.spinning .outer-col:nth-of-type(2) .col {
+    animation-delay: 0.01s;
+}
+
+#container.spinning .outer-col:nth-of-type(3) .col {
+    animation-delay: 0.02s;
+}
+
+#container.spinning .col {
+    animation-name: scroll;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(.65, .97, .72, 1);
+}
+
+@keyframes scroll {
+    to {
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Style the controls
+ */
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px; /* Добавляем нижний отступ */
+}
+
+.bet-controls {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.bet-controls input {
+    width: 60px;
+    padding: 5px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.adjust-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.adjust-buttons button {
+    padding: 5px 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.adjust-buttons button:hover {
+    background-color: #f0f0f0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.start-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.start-button:hover {
+    background-color: #45a049;
+}
+
+.exit-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+}
+
+.exit-button:hover {
+    background-color: #d32f2f;
+}
+
+/*
+ * Media queries for responsive design
+ */
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+    }
+
+    .bet-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bet-controls input, .adjust-buttons {
+        margin-bottom: 5px;
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+    }
+}

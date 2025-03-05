@@ -1,0 +1,212 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.user-info {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: transparent;
+}
+
+.user-info-item {
+    color: white;
+    font-size: 1.2em;
+}
+
+#balance {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.game-container {
+    margin: 60px auto 0;
+    max-width: 400px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#multiplier {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    justify-content: center;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 400px;
+}
+
+.cell {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background-color: #444;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-image: url('items/background.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.cell.revealed {
+    background-image: url('items/green.png');
+    cursor: default;
+}
+
+.cell.mine {
+    background-image: url('items/red.png');
+    cursor: default;
+}
+
+.controls {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.mines-control {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mines-panel {
+    display: flex;
+    margin-left: 20px;
+}
+
+.mines-button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #444;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.mines-button:hover {
+    background-color: #555;
+}
+
+.bet-controls {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.bet-controls input {
+    width: 80px;
+    padding: 5px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 60px;
+    background-color: #fff3e0;
+}
+
+.adjust-buttons {
+    display: flex;
+    gap: 5px;
+    margin-right: 40px;
+}
+
+.adjust-buttons button {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.adjust-buttons button img {
+    width: 40px;
+    height: 40px;
+    background: none;
+}
+
+.adjust-buttons button:hover img {
+    filter: brightness(1.1);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.action-buttons button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.action-buttons button:hover {
+    background-color: #555;
+}
+
+.notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.notification.show {
+    opacity: 1;
+}
+
+@media (max-width: 400px) {
+    .game-container {
+        width: 95%;
+    }
+
+    .cell {
+        font-size: 16px;
+    }
+
+    #multiplier {
+        font-size: 1em;
+    }
+}

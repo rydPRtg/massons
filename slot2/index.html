@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sloty</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+</head>
+<body>
+
+<div class="user-info">
+    <div id="username" class="user-info-item"></div>
+    <div id="balance" class="user-info-item"></div>
+</div>
+
+<div id="container">
+    <div class="window-border">
+        <div class="window">
+            <div class="outer-spacer"></div>
+            <div class="outer-col">
+                <div class="col" id="reel1"></div>
+            </div>
+            <div class="outer-spacer"></div>
+            <div class="outer-col">
+                <div class="col" id="reel2"></div>
+            </div>
+            <div class="outer-spacer"></div>
+            <div class="outer-col">
+                <div class="col" id="reel3"></div>
+            </div>
+            <div class="outer-spacer"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="bet-controls">
+            <input type="number" id="bet-amount" placeholder="Сумма ставки" min="0" disabled>
+            <div class="adjust-buttons">
+                <button onclick="quickBet(-1)">
+                    <img src="items/minus.png" alt="-1$">
+                </button>
+                <button onclick="quickBet(1)">
+                    <img src="items/plus.png" alt="+1$">
+                </button>
+            </div>
+        </div>
+        <div class="action-buttons">
+            <button class="start-button" onclick="spin(this)">
+                <img src="items/spin.png" alt="Spin">
+            </button>
+            <button id="exitButton" class="exit-button">
+                <img src="items/exit.png" alt="Exit">
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="marquee-container">
+    <div class="marquee">
+        <span id="marquee-text"></span>
+    </div>
+</div>
+
+</body>
+</html>

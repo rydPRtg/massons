@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mines Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="user-info">
+        <div id="username" class="user-info-item"></div>
+        <div id="balance" class="user-info-item"></div>
+    </div>
+    <div class="game-container">
+        <p id="multiplier">Multiplier: 1.00</p>
+        <div id="grid" class="grid"></div>
+        <div class="controls">
+            <div class="mines-control">
+                <p>Mines: <span id="mines-count">2</span></p>
+                <div class="mines-panel">
+                    <button class="mines-button" data-mines="2">2</button>
+                    <button class="mines-button" data-mines="4">4</button>
+                    <button class="mines-button" data-mines="6">6</button>
+                    <button class="mines-button" data-mines="8">8</button>
+                </div>
+            </div>
+            <div class="bet-controls">
+                <input type="number" id="bet-amount" placeholder="Сумма ставки" min="0" disabled>
+                <div class="adjust-buttons">
+                    <button onclick="quickBet(-1)">
+                        <img src="items/minus.png" alt="-1$">
+                    </button>
+                    <button onclick="quickBet(1)">
+                        <img src="items/plus.png" alt="+1$">
+                    </button>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button id="start">Start</button>
+                <button id="stop">Stop</button>
+                <button id="exit">Exit</button>
+            </div>
+        </div>
+    </div>
+    <div class="notification" id="notification"></div>
+    <script src="script.js"></script>
+</body>
+</html>
