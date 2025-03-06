@@ -22,6 +22,8 @@ body {
     background-image: url('items/background.jpg'); /* Ссылка на ваш фон */
     background-size: cover;
     background-position: center;
+    overflow: hidden; /* Запрет на скролл */
+    touch-action: none; /* Запрет на масштабирование */
 }
 
 /*
@@ -257,7 +259,6 @@ body {
 @media (max-width: 80px) {
     .container {
         width: 95%;
-
     }
 
     .bet-controls {
