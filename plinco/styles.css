@@ -1,0 +1,139 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('img/background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.game-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    width: 400px;
+}
+
+#game-board {
+    position: relative;
+    width: 300px;
+    height: 500px;
+    margin: 50px auto 0; /* Опускаем игровое поле ниже */
+    background-color: transparent; /* Прозрачное игровое поле */
+    border: 1px solid transparent; /* Прозрачная рамка */
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.balance {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    font-size: 18px;
+}
+
+.difficulty-buttons {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.difficulty-buttons button {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.difficulty-buttons button.active {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.difficulty-buttons button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#startButton {
+    width: 60px;
+    height: 60px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#startButton:hover {
+    background-color: #45a049;
+}
+
+.bet {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bet button {
+    width: 30px;
+    height: 30px;
+    background-color: #ddd;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.bet button:hover {
+    background-color: #ccc;
+}
+
+#betAmount {
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* Стили для всплывающего уведомления */
+.notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 18px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s;
+}

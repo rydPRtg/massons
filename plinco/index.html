@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plinko с балансом</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="balance">
+            <p>Баланс: <span id="balance">1000</span> монет</p>
+        </div>
+        <div id="game-board"></div>
+        <div class="difficulty-buttons">
+            <button data-rows="8">8</button>
+            <button data-rows="9">9</button>
+            <button data-rows="10">10</button>
+            <button data-rows="11">11</button>
+            <button data-rows="12">12</button>
+            <button data-rows="13">13</button>
+        </div>
+        <div class="controls">
+            <button id="startButton">PLAY</button>
+            <div class="bet">
+                <button id="decreaseBet">-</button>
+                <input type="number" id="betAmount" value="10" min="1" max="1000" readonly>
+                <button id="increaseBet">+</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

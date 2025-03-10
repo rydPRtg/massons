@@ -82,7 +82,7 @@ document.getElementById("exitButton5Container").addEventListener("click", () => 
 });
 
 document.getElementById("exitButton6Container").addEventListener("click", () => {
-    window.location.href = `newgame6/index.html?username=${queryParams.username}&balance=${queryParams.balance}&telegram_id=${queryParams.telegram_id}`;
+    window.location.href = `plinco/index.html?username=${queryParams.username}&balance=${queryParams.balance}&telegram_id=${queryParams.telegram_id}`;
 });
 
 document.getElementById("profileButton").addEventListener("click", () => {
