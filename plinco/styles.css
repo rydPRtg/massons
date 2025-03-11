@@ -3,8 +3,8 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
-    overflow: hidden; /* Запрещаем скроллинг */
-    touch-action: none; /* Запрещаем действия касания для масштабирования */
+    overflow: hidden;
+    touch-action: none;
     font-family: Arial, sans-serif;
     background-image: url('img/background.jpg');
     background-size: cover;
@@ -23,16 +23,16 @@ body {
     padding: 2vh;
     border-radius: 10px;
     position: relative;
-    width: 90vw; /* Адаптивная ширина */
+    width: 90vw;
     max-width: 400px;
-    height: 95vh; /* Адаптивная высота */
+    height: 95vh;
     box-sizing: border-box;
 }
 
 #game-board {
     position: relative;
     width: 100%;
-    height: 65vh; /* Адаптивная высота игрового поля */
+    height: 65vh;
     margin: 5vh auto 0;
     background-color: transparent;
     border: 1px solid transparent;
@@ -45,7 +45,7 @@ body {
     top: 1vh;
     right: 2vw;
     color: #fff;
-    font-size: clamp(14px, 4vw, 18px); /* Адаптивный размер шрифта */
+    font-size: clamp(14px, 4vw, 18px);
 }
 
 .difficulty-buttons {
@@ -86,6 +86,11 @@ body {
     gap: 1vh;
 }
 
+.button-group {
+    display: flex;
+    gap: 1vw; /* Расстояние между кнопками PLAY и EXIT */
+}
+
 #startButton {
     width: clamp(50px, 15vw, 60px);
     height: clamp(50px, 15vw, 60px);
@@ -100,6 +105,22 @@ body {
 
 #startButton:hover {
     background-color: #45a049;
+}
+
+#exitButton {
+    width: clamp(40px, 12vw, 50px); /* Чуть меньше, чем PLAY */
+    height: clamp(40px, 12vw, 50px);
+    background-color: #FF0000; /* Красный цвет */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: clamp(10px, 3.5vw, 14px); /* Чуть меньший шрифт */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#exitButton:hover {
+    background-color: #CC0000; /* Темнее красный при наведении */
 }
 
 .bet {

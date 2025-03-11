@@ -5,6 +5,7 @@ const { world } = engine;
 
 const gameBoard = document.getElementById('game-board');
 const startButton = document.getElementById('startButton');
+const exitButton = document.getElementById('exitButton');
 const difficultyButtons = document.querySelectorAll('.difficulty-buttons button');
 const balanceDisplay = document.getElementById('balance');
 const betAmountInput = document.getElementById('betAmount');
@@ -75,6 +76,9 @@ function createPins(rows) {
             const pin = Bodies.circle(x, y, pinRadius, {
                 isStatic: true,
                 friction: 0.2,
+                render: {
+                    fillStyle: '#000000'
+                }
             });
             pins.push(pin);
         }
@@ -86,13 +90,13 @@ function createMultipliers(rows) {
     multipliers.forEach(zone => World.remove(world, zone));
     multipliers = [];
 
-    const zoneHeight = height * 0.06; // 6% от высоты
+    const zoneHeight = height * 0.06;
     const zoneWidth = (width - 20) / multipliersByRows[rows].length;
     const multipliersValues = multipliersByRows[rows];
 
     for (let i = 0; i < multipliersValues.length; i++) {
         const x = 10 + (i + 0.5) * zoneWidth;
-        const y = height - height * 0.2; // 20% от низа
+        const y = height - height * 0.2;
         const zone = Bodies.rectangle(x, y, zoneWidth - 5, zoneHeight, {
             isStatic: true,
             isSensor: true,
@@ -205,6 +209,11 @@ startButton.addEventListener('click', () => {
     createBall();
 });
 
+// Обработка клика по кнопке "Exit"
+exitButton.addEventListener('click', () => {
+    window.location.href = "../index.html"; // Возврат на главную страницу
+});
+
 difficultyButtons.forEach(button => {
     button.addEventListener('click', () => {
         difficultyButtons.forEach(btn => btn.classList.remove('active'));
@@ -237,6 +246,7 @@ Events.on(engine, 'collisionStart', (event) => {
     pairs.forEach((pair) => {
         const ball = pair.bodyA.collisionFilter.group === -1 ? pair.bodyA : pair.bodyB.collisionFilter.group === -1 ? pair.bodyB : null;
         const zone = pair.bodyA.label.startsWith('zone') ? pair.bodyA : pair.bodyB.label.startsWith('zone') ? pair.bodyB : null;
+        const pin = pair.bodyA.isStatic && !pair.bodyA.label.startsWith('zone') ? pair.bodyA : pair.bodyB.isStatic && !pair.bodyB.label.startsWith('zone') ? pair.bodyB : null;
 
         if (ball && zone) {
             const multiplier = zone.multiplier;
@@ -246,6 +256,11 @@ Events.on(engine, 'collisionStart', (event) => {
             World.remove(world, ball);
             balls = balls.filter(b => b !== ball);
             ballTimers.delete(ball);
+        } else if (ball && pin) {
+            pin.render.fillStyle = '#FFFF00';
+            setTimeout(() => {
+                pin.render.fillStyle = '#000000';
+            }, 1000);
         }
     });
 });
@@ -312,7 +327,7 @@ difficultyButtons[0].classList.add('active');
 
 Events.on(render, 'afterRender', () => {
     const context = render.context;
-    context.font = `${Math.min(width * 0.04, 12)}px Arial`; // Адаптивный шрифт
+    context.font = `${Math.min(width * 0.04, 12)}px Arial`;
     context.fillStyle = '#000';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
