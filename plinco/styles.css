@@ -9,12 +9,29 @@ html, body {
     background-image: url('img/background.jpg');
     background-size: cover;
     background-position: center;
+    color: white;
 }
 
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.user-info div {
+    margin: 0 10px;
 }
 
 .game-container {
@@ -27,6 +44,7 @@ body {
     max-width: 400px;
     height: 95vh;
     box-sizing: border-box;
+    margin-top: 40px; /* Отступ от верхнего блока user-info */
 }
 
 #game-board {
@@ -38,14 +56,6 @@ body {
     border: 1px solid transparent;
     border-radius: 5px;
     overflow: hidden;
-}
-
-.balance {
-    position: absolute;
-    top: 1vh;
-    right: 2vw;
-    color: #fff;
-    font-size: clamp(14px, 4vw, 18px);
 }
 
 .difficulty-buttons {
@@ -88,7 +98,7 @@ body {
 
 .button-group {
     display: flex;
-    gap: 1vw; /* Расстояние между кнопками PLAY и EXIT */
+    gap: 1vw;
 }
 
 #startButton {
@@ -108,19 +118,19 @@ body {
 }
 
 #exitButton {
-    width: clamp(40px, 12vw, 50px); /* Чуть меньше, чем PLAY */
-    height: clamp(40px, 12vw, 50px);
-    background-color: #FF0000; /* Красный цвет */
+    width: clamp(50px, 15vw, 60px);
+    height: clamp(50px, 15vw, 60px);
+    background-color: #FF0000;
     color: white;
     border: none;
     border-radius: 50%;
-    font-size: clamp(10px, 3.5vw, 14px); /* Чуть меньший шрифт */
+    font-size: clamp(12px, 4vw, 16px);
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 #exitButton:hover {
-    background-color: #CC0000; /* Темнее красный при наведении */
+    background-color: #CC0000;
 }
 
 .bet {

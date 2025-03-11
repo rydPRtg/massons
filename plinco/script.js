@@ -8,6 +8,7 @@ const startButton = document.getElementById('startButton');
 const exitButton = document.getElementById('exitButton');
 const difficultyButtons = document.querySelectorAll('.difficulty-buttons button');
 const balanceDisplay = document.getElementById('balance');
+const usernameDisplay = document.getElementById('username');
 const betAmountInput = document.getElementById('betAmount');
 const decreaseBetButton = document.getElementById('decreaseBet');
 const increaseBetButton = document.getElementById('increaseBet');
@@ -44,7 +45,28 @@ let pins = [];
 let balls = [];
 let currentRows = 8;
 let multipliers = [];
-let balance = 1000;
+let balance;
+
+// Функция для получения параметров из URL
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        username: params.get('username'),
+        balance: params.get('balance'),
+        telegram_id: params.get('telegram_id')
+    };
+}
+
+// Функция для отображения информации о пользователе
+function displayUserInfo(username, balanceValue) {
+    usernameDisplay.innerText = `Никнейм: ${username}`;
+    balanceDisplay.innerText = `Баланс: ${balanceValue}`;
+}
+
+// Получаем параметры из URL и отображаем информацию
+const queryParams = getQueryParams();
+balance = parseInt(queryParams.balance) || 1000; // Начальный баланс из URL или 1000 по умолчанию
+displayUserInfo(queryParams.username || 'Гость', balance);
 
 const ballTimers = new WeakMap();
 
@@ -170,15 +192,12 @@ function updateBalance(multiplier, zoneIndex, totalZones) {
 
     if (zoneIndex === 0 || zoneIndex === totalZones - 1) {
         balance += bet;
-        balanceDisplay.textContent = Math.round(balance);
-        showNotification(`Возврат, давай еще!`);
     } else {
         balance -= bet;
         const winnings = bet * multiplier;
         balance += winnings;
-        balanceDisplay.textContent = Math.round(balance);
-        showNotification(`Множитель: ${multiplier}`);
     }
+    displayUserInfo(queryParams.username || 'Гость', Math.round(balance)); // Обновляем отображение баланса
 }
 
 function showNotification(message) {
@@ -209,9 +228,8 @@ startButton.addEventListener('click', () => {
     createBall();
 });
 
-// Обработка клика по кнопке "Exit"
 exitButton.addEventListener('click', () => {
-    window.location.href = "../index.html"; // Возврат на главную страницу
+    window.location.href = "../index.html";
 });
 
 difficultyButtons.forEach(button => {
@@ -307,7 +325,7 @@ Events.on(engine, 'beforeUpdate', () => {
                 if (elapsedTime >= 4) {
                     const bet = parseInt(betAmountInput.value);
                     balance += bet;
-                    balanceDisplay.textContent = Math.round(balance);
+                    displayUserInfo(queryParams.username || 'Гость', Math.round(balance));
                     showNotification(`Возврат, давай еще!`);
                     World.remove(world, ball);
                     balls.splice(index, 1);
