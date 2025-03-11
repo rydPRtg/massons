@@ -11,8 +11,9 @@ const betAmountInput = document.getElementById('betAmount');
 const decreaseBetButton = document.getElementById('decreaseBet');
 const increaseBetButton = document.getElementById('increaseBet');
 
-const width = 300;
-const height = 500;
+// Адаптивные размеры
+const width = gameBoard.offsetWidth;
+const height = gameBoard.offsetHeight;
 
 engine.world.gravity.y = 0.6;
 
@@ -44,7 +45,6 @@ let currentRows = 8;
 let multipliers = [];
 let balance = 1000;
 
-// Объект для отслеживания времени и позиции каждого шарика
 const ballTimers = new WeakMap();
 
 const multipliersByRows = {
@@ -86,13 +86,13 @@ function createMultipliers(rows) {
     multipliers.forEach(zone => World.remove(world, zone));
     multipliers = [];
 
-    const zoneHeight = 30;
+    const zoneHeight = height * 0.06; // 6% от высоты
     const zoneWidth = (width - 20) / multipliersByRows[rows].length;
     const multipliersValues = multipliersByRows[rows];
 
     for (let i = 0; i < multipliersValues.length; i++) {
         const x = 10 + (i + 0.5) * zoneWidth;
-        const y = height - 100;
+        const y = height - height * 0.2; // 20% от низа
         const zone = Bodies.rectangle(x, y, zoneWidth - 5, zoneHeight, {
             isStatic: true,
             isSensor: true,
@@ -250,7 +250,6 @@ Events.on(engine, 'collisionStart', (event) => {
     });
 });
 
-// Корректировка угла отскока для смещения к центру
 Events.on(engine, 'collisionActive', (event) => {
     const pairs = event.pairs;
 
@@ -264,7 +263,7 @@ Events.on(engine, 'collisionActive', (event) => {
             const deltaX = centerX - ballX;
 
             if (Math.abs(deltaX) > 10) {
-                const angleAdjustment = deltaX * 0.001;
+                const angleAdjustment = deltaX * 0.002;
                 Body.setVelocity(ball, {
                     x: ball.velocity.x + angleAdjustment,
                     y: ball.velocity.y
@@ -274,27 +273,25 @@ Events.on(engine, 'collisionActive', (event) => {
     });
 });
 
-// Проверка на застревание (4 секунды без движения)
 Events.on(engine, 'beforeUpdate', () => {
     const currentTime = Date.now();
     balls.forEach((ball, index) => {
         const timerData = ballTimers.get(ball);
-        if (!timerData) return; // Пропускаем, если таймер не инициализирован
+        if (!timerData) return;
 
         const { x: lastX, y: lastY } = timerData.lastPosition;
         const { x: currX, y: currY } = ball.position;
 
-        // Вычисляем расстояние, на которое шарик переместился
         const distanceMoved = Math.sqrt((currX - lastX) ** 2 + (currY - lastY) ** 2);
 
-        if (distanceMoved < 0.5) { // Если шарик почти не сдвинулся
+        if (distanceMoved < 0.5) {
             if (!timerData.startTime) {
-                timerData.startTime = currentTime; // Запускаем таймер
+                timerData.startTime = currentTime;
             } else {
-                const elapsedTime = (currentTime - timerData.startTime) / 1000; // В секундах
+                const elapsedTime = (currentTime - timerData.startTime) / 1000;
                 if (elapsedTime >= 4) {
                     const bet = parseInt(betAmountInput.value);
-                    balance += bet; // Возвращаем ставку
+                    balance += bet;
                     balanceDisplay.textContent = Math.round(balance);
                     showNotification(`Возврат, давай еще!`);
                     World.remove(world, ball);
@@ -303,8 +300,8 @@ Events.on(engine, 'beforeUpdate', () => {
                 }
             }
         } else {
-            timerData.startTime = null; // Сбрасываем таймер, если шарик движется
-            timerData.lastPosition = { x: currX, y: currY }; // Обновляем последнюю позицию
+            timerData.startTime = null;
+            timerData.lastPosition = { x: currX, y: currY };
         }
     });
 });
@@ -315,7 +312,7 @@ difficultyButtons[0].classList.add('active');
 
 Events.on(render, 'afterRender', () => {
     const context = render.context;
-    context.font = '12px Arial';
+    context.font = `${Math.min(width * 0.04, 12)}px Arial`; // Адаптивный шрифт
     context.fillStyle = '#000';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
