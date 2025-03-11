@@ -1,46 +1,84 @@
-const headsButton = document.getElementById('heads');
-const tailsButton = document.getElementById('tails');
-const spinButton = document.getElementById('spin');
-const coin = document.getElementById('coin');
-const outcomeDisplay = document.getElementById('outcome');
+document.addEventListener("DOMContentLoaded", () => {
+    const coin = document.getElementById("coin");
+    const headsBtn = document.getElementById("headsBtn");
+    const tailsBtn = document.getElementById("tailsBtn");
+    const possibleWin = document.getElementById("possibleWin");
+    const multiplier = document.getElementById("multiplier");
+    const betAmount = document.querySelector(".bet-amount span");
+    const decreaseBetBtn = document.getElementById("decreaseBet");
+    const increaseBetBtn = document.getElementById("increaseBet");
+    const halfBetBtn = document.getElementById("halfBet");
+    const doubleBetBtn = document.getElementById("doubleBet");
 
-let userChoice = null;
+    let bet = 0.2;
+    const multiplierValue = 1.96;
 
-// Обработчики выбора "Heads" или "Tails"
-headsButton.addEventListener('click', () => handleChoice('heads'));
-tailsButton.addEventListener('click', () => handleChoice('tails'));
+    function updatePossibleWin() {
+        const win = (bet * multiplierValue).toFixed(2);
+        possibleWin.textContent = `${win} $`;
+        betAmount.textContent = `${bet.toFixed(2)} $`;
+    }
 
-// Обработка выбора игрока
-function handleChoice(choice) {
-    userChoice = choice;
-    outcomeDisplay.textContent = `You chose ${choice.toUpperCase()}. Press Spin!`;
-    spinButton.disabled = false;
-}
+    multiplier.textContent = `x${multiplierValue}`;
+    updatePossibleWin();
 
-// Обработка вращения монеты
-spinButton.addEventListener('click', () => {
-    spinButton.disabled = true;
+    increaseBetBtn.addEventListener("click", () => {
+        bet += 0.1;
+        updatePossibleWin();
+    });
 
-    // Запустить анимацию вращения монеты
-    coin.style.animation = 'spin 3s ease-in-out'; // Время анимации увеличено до 3 секунд
+    decreaseBetBtn.addEventListener("click", () => {
+        if (bet > 0.1) {
+            bet -= 0.1;
+            updatePossibleWin();
+        }
+    });
 
-    // После завершения анимации показать результат
-    setTimeout(() => {
-        coin.style.animation = 'none';
+    halfBetBtn.addEventListener("click", () => {
+        if (bet > 0.1) {
+            bet /= 2;
+            updatePossibleWin();
+        }
+    });
 
-        const result = Math.random() < 0.5 ? 'heads' : 'tails';
-        coin.style.backgroundImage = result === 'heads'
-            ? "url('heads.png')"
-            : "url('tails.png')";
+    doubleBetBtn.addEventListener("click", () => {
+        bet *= 2;
+        updatePossibleWin();
+    });
 
-        // Вывод результата
-        outcomeDisplay.textContent =
-            userChoice === result
-                ? `You WON! It was ${result.toUpperCase()}.`
-                : `You LOST! It was ${result.toUpperCase()}.`;
+    function flipCoin(userChoice) {
+        headsBtn.disabled = true;
+        tailsBtn.disabled = true;
 
-        // Включить кнопку "Spin" для новой попытки
-        spinButton.disabled = false;
-    }, 3000); // Ожидание завершения анимации (3 секунды)
+        // Генерируем случайный результат
+        const result = Math.floor(Math.random() * 2);
+        const isHeads = result === 0;
+        console.log(`Случайное число: ${Math.random().toFixed(2)}`);
+        console.log(`Результат: ${isHeads ? "Орёл (coin-heads.png)" : "Решка (coin-tails.png)"}`);
+
+        // Удаляем старые классы
+        coin.classList.remove("animate", "animate-tails", "animating", "show-heads", "show-tails");
+
+        // Устанавливаем начальное состояние (показываем орла перед анимацией)
+        coin.classList.add("show-heads");
+
+        // Добавляем класс для анимации
+        coin.classList.add("animating");
+
+        // Запускаем анимацию
+        setTimeout(() => {
+            coin.classList.add(isHeads ? "animate" : "animate-tails");
+        }, 10);
+
+        // После анимации показываем правильную сторону
+        setTimeout(() => {
+            coin.classList.remove("animate", "animate-tails", "animating");
+            coin.classList.add(isHeads ? "show-heads" : "show-tails");
+            headsBtn.disabled = false;
+            tailsBtn.disabled = false;
+        }, 2000);
+    }
+
+    headsBtn.addEventListener("click", () => flipCoin("heads"));
+    tailsBtn.addEventListener("click", () => flipCoin("tails"));
 });
-

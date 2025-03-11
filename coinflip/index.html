@@ -1,31 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coinflip Game</title>
+    <title>Coinflip - 1win Style</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>Coinflip Game</h1>
-        <p class="info">Choose "Heads" or "Tails" and press Spin!</p>
-
-        <div class="choices">
-            <button class="choice" id="heads">Heads</button>
-            <button class="choice" id="tails">Tails</button>
+    <div class="container">
+        <div class="coin" id="coin">
+            <div class="side heads"></div>
+            <div class="side tails"></div>
         </div>
-
-        <div class="coin-wrapper">
-            <div class="coin" id="coin"></div>
+        <div class="game-info">
+            <div class="win-info">
+                <span>ВОЗМОЖНЫЙ ВЫИГРЫШ</span>
+                <span id="possibleWin">0.39 $</span>
+            </div>
+            <div class="multiplier">
+                <span>МНОЖИТЕЛЬ</span>
+                <span id="multiplier">x1.96</span>
+            </div>
         </div>
-
-        <div class="controls">
-            <button id="spin" class="spin" disabled>Spin</button>
-            <p id="outcome"></p>
+        <div class="bet-section">
+            <div class="bet-amount">
+                <span>0.2 $</span>
+                <div class="bet-controls">
+                    <button id="decreaseBet">-</button>
+                    <button id="increaseBet">+</button>
+                    <button id="halfBet">/2</button>
+                    <button id="doubleBet">x2</button>
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="headsBtn">Орёл</button>
+                <button id="tailsBtn">Решка</button>
+            </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

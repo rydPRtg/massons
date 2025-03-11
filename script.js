@@ -78,7 +78,7 @@ document.getElementById("exitButton4Container").addEventListener("click", () => 
 });
 
 document.getElementById("exitButton5Container").addEventListener("click", () => {
-    window.location.href = `ruletka/index.html?username=${queryParams.username}&balance=${queryParams.balance}&telegram_id=${queryParams.telegram_id}`;
+    window.location.href = `coinflip/index.html?username=${queryParams.username}&balance=${queryParams.balance}&telegram_id=${queryParams.telegram_id}`;
 });
 
 document.getElementById("exitButton6Container").addEventListener("click", () => {
