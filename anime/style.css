@@ -1,0 +1,413 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --item-height: 100px;
+    --col-width: calc((100% - 16px) / 3);
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a3d, #3b2a7e);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    background: linear-gradient(180deg, #2a1a5e, #16013c);
+    padding: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 360px;
+    margin: 0 auto;
+    position: relative;
+    height: 90vh;
+    max-height: 640px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.win-message {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #00ff00, #008000);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.win-message.show {
+    opacity: 1;
+}
+
+.balance-section {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #2a1a5e;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.balance-label {
+    margin-right: 5px;
+}
+
+.balance-value {
+    color: #00ff00;
+}
+
+.window-border {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
+}
+
+.window {
+    position: relative;
+    overflow: hidden;
+    height: calc(3 * var(--item-height));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.window::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent);
+}
+
+.window::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
+}
+
+.icon {
+    width: 80px;
+    height: var(--item-height);
+    display: block;
+    position: relative;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.icon.winning {
+    box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.8); /* Золотое свечение */
+    animation: pulse 1s infinite alternate; /* Пульсация */
+}
+
+.outer-col {
+    overflow-y: hidden;
+    width: var(--col-width);
+    background: linear-gradient(180deg, #16013c, #741a5e);
+    height: calc(var(--item-height) * 3);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.outer-spacer {
+    width: 8px;
+    height: 100%;
+    background: linear-gradient(#be4d01, #893802);
+    border-right: 2px solid #f7ce6c38;
+}
+
+.col {
+    padding: 0 10px;
+    will-change: true;
+    transform: translateY(calc(-100% + var(--item-height) * 3));
+}
+
+.col img {
+    width: 100%;
+    height: auto;
+    margin: 10px 0;
+    position: relative;
+    z-index: 3;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.col .icon::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    background-color: white;
+    box-shadow: 0 0 35px 30px rgba(12, 0, 14, 0.69);
+    z-index: 2;
+    border-radius: 100%;
+}
+
+#container.spinning .outer-col:nth-of-type(2) .col {
+    animation-delay: 0.01s;
+}
+
+#container.spinning .outer-col:nth-of-type(3) .col {
+    animation-delay: 0.02s;
+}
+
+#container.spinning .col {
+    animation-name: scroll;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(.65, .97, .72, 1);
+}
+
+@keyframes scroll {
+    to {
+        transform: translateY(0);
+    }
+}
+
+.control-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, #f9e13d, #fd9b03);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    flex-wrap: wrap;
+    height: 100px;
+}
+
+.bet-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bet-display {
+    background: #2a1a5e;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    width: 60px;
+    font-size: 12px;
+}
+
+.bet-value {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.bet-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.bet-btn {
+    background: #2a1a5e;
+    color: #fff;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.bet-btn:hover {
+    background: #3b2a7e;
+}
+
+.bet-btn.min, .bet-btn.max {
+    background: #6a1b9a;
+}
+
+.bet-btn.min:hover, .bet-btn.max:hover {
+    background: #7b2cbf;
+}
+
+.spin-section {
+    display: flex;
+    justify-content: center;
+}
+
+.spin-button {
+    background: #ff0000;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s;
+}
+
+.spin-button:hover {
+    background: #ff3333;
+}
+
+.auto-exit-section {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.auto-spin-button, .exit-button {
+    background: #6a1b9a;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.auto-spin-button:hover, .exit-button:hover {
+    background: #7b2cbf;
+}
+
+/* Стили для выигрышных линий */
+.win-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.win-lines line {
+    stroke: url(#winGradient); /* Градиентная линия */
+    stroke-width: 3;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    animation: pulseLine 1.5s infinite alternate;
+}
+
+.win-lines line.show {
+    opacity: 1;
+}
+
+/* Анимация пульсации для иконок */
+@keyframes pulse {
+    from {
+        box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.8);
+    }
+    to {
+        box-shadow: 0 0 25px 10px rgba(255, 215, 0, 0.5);
+    }
+}
+
+/* Анимация пульсации для линии */
+@keyframes pulseLine {
+    from {
+        stroke-width: 3;
+    }
+    to {
+        stroke-width: 5;
+    }
+}
+
+/* Градиент для линии */
+svg defs {
+    display: block;
+}
+
+@media (max-width: 414px) and (max-height: 736px) {
+    :root {
+        --item-height: 80px;
+        --col-width: calc((100% - 12px) / 3);
+    }
+
+    #container {
+        max-width: 360px;
+        max-height: 640px;
+        padding: 10px;
+    }
+
+    .balance-section {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .window {
+        height: calc(3 * var(--item-height));
+    }
+
+    .icon {
+        width: 70px;
+    }
+
+    .outer-col {
+        width: var(--col-width);
+    }
+
+    .outer-spacer {
+        width: 6px;
+    }
+
+    .control-panel {
+        height: 80px;
+        padding: 8px;
+    }
+
+    .bet-display {
+        width: 50px;
+        font-size: 10px;
+    }
+
+    .bet-btn {
+        padding: 4px 6px;
+        font-size: 8px;
+    }
+
+    .spin-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .auto-spin-button, .exit-button {
+        font-size: 8px;
+        padding: 5px 10px;
+    }
+
+    .win-message {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}

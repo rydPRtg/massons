@@ -70,7 +70,7 @@ document.getElementById("exitButton2Container").addEventListener("click", () => 
 });
 
 document.getElementById("exitButton3Container").addEventListener("click", () => {
-    window.location.href = `aviator/index.html?username=${queryParams.username}&balance=${queryParams.balance}&telegram_id=${queryParams.telegram_id}`;
+    window.location.href = `anime/index.html?username=${queryParams.username}&balance=${queryParams.balance}&telegram_id=${queryParams.telegram_id}`;
 });
 
 document.getElementById("exitButton4Container").addEventListener("click", () => {
