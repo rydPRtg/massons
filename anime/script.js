@@ -31,6 +31,7 @@ window.addEventListener('DOMContentLoaded', function(event) {
     setInitialItems();
     updateBalanceDisplay();
     setupBetControls();
+    startStatsUpdates();
 });
 
 function setInitialItems() {
@@ -130,21 +131,20 @@ function showWinEffects(winningLines) {
     svg.appendChild(defs);
 
     const lineCoords = {
-        '0-1-2': { x1: 10, y1: 16.67, x2: 90, y2: 16.67 }, // Верхний ряд (1/3 высоты)
-        '3-4-5': { x1: 10, y1: 50, x2: 90, y2: 50 },       // Центральный ряд (2/3 высоты)
-        '6-7-8': { x1: 10, y1: 83.33, x2: 90, y2: 83.33 }, // Нижний ряд (3/3 высоты)
-        '0-4-8': { x1: 10, y1: 10, x2: 90, y2: 90 },       // Диагональ 1-5-9
-        '6-4-2': { x1: 10, y1: 90, x2: 90, y2: 10 },       // Диагональ 7-5-3
-        '0-3-6': { x1: 20, y1: 10, x2: 20, y2: 90 },       // Вертикаль 1-4-7
-        '1-4-7': { x1: 50, y1: 10, x2: 50, y2: 90 },       // Вертикаль 2-5-8
-        '2-5-8': { x1: 80, y1: 10, x2: 80, y2: 90 }        // Вертикаль 3-6-9
+        '0-1-2': { x1: 10, y1: 16.67, x2: 90, y2: 16.67 },
+        '3-4-5': { x1: 10, y1: 50, x2: 90, y2: 50 },
+        '6-7-8': { x1: 10, y1: 83.33, x2: 90, y2: 83.33 },
+        '0-4-8': { x1: 10, y1: 10, x2: 90, y2: 90 },
+        '6-4-2': { x1: 10, y1: 90, x2: 90, y2: 10 },
+        '0-3-6': { x1: 20, y1: 10, x2: 20, y2: 90 },
+        '1-4-7': { x1: 50, y1: 10, x2: 50, y2: 90 },
+        '2-5-8': { x1: 80, y1: 10, x2: 80, y2: 90 }
     };
 
-    // Подсвечиваем иконки
     winningLines.forEach(line => {
         line.forEach(index => {
-            const colIndex = Math.floor(index / 3); // Номер колонки (0, 1, 2)
-            const rowIndex = index % 3; // Номер строки в колонке (0, 1, 2)
+            const colIndex = Math.floor(index / 3);
+            const rowIndex = index % 3;
             const icon = cols[colIndex].querySelectorAll('.icon')[rowIndex];
             icon.classList.add('winning');
         });
@@ -161,7 +161,6 @@ function showWinEffects(winningLines) {
         }
     });
 
-    // Убираем эффекты через 3 секунды
     setTimeout(() => {
         svg.querySelectorAll('line').forEach(line => line.classList.remove('show'));
         document.querySelectorAll('.icon.winning').forEach(icon => icon.classList.remove('winning'));
@@ -179,7 +178,6 @@ function spin(elem) {
         return;
     }
 
-    // Обновляем иконки перед спином
     let baseItemAmount = 40;
     for (let i = 0; i < cols.length; ++i) {
         let col = cols[i];
@@ -197,7 +195,7 @@ function spin(elem) {
     elem.setAttribute('disabled', true);
     document.getElementById('container').classList.add('spinning');
 
-    balance -= bet; // Уменьшаем баланс на ставку
+    balance -= bet;
     updateBalanceDisplay();
 
     window.setTimeout(setResult, BASE_SPINNING_DURATION * 1000 / 2);
@@ -221,16 +219,10 @@ function setResult() {
         ];
     });
 
-    // Проверяем все линии
     const lines = [
-        [0, 1, 2], // Верхний ряд (1, 2, 3)
-        [3, 4, 5], // Центральный ряд (4, 5, 6)
-        [6, 7, 8], // Нижний ряд (7, 8, 9)
-        [0, 4, 8], // Диагональ 1-5-9
-        [6, 4, 2], // Диагональ 7-5-3
-        [0, 3, 6], // Вертикаль 1-4-7 (первая колонка)
-        [1, 4, 7], // Вертикаль 2-5-8 (вторая колонка)
-        [2, 5, 8]  // Вертикаль 3-6-9 (третья колонка)
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 4, 8], [6, 4, 2],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8]
     ];
 
     let totalWinAmount = 0;
@@ -245,7 +237,6 @@ function setResult() {
 
         for (let set in WINNING_COMBINATIONS) {
             const { icons, multiplier } = WINNING_COMBINATIONS[set];
-            // Проверяем, что все три иконки принадлежат одному набору
             const isWinning = lineIcons.every(icon => icons.includes(icon));
 
             const isVertical = line[0] === 0 && line[1] === 3 && line[2] === 6 ||
@@ -256,7 +247,7 @@ function setResult() {
                 const winMultiplier = isVertical ? 1.98 : multiplier;
                 const winAmount = bet * winMultiplier;
                 totalWinAmount += winAmount;
-                winningLines.push(line); // Сохраняем выигрышную линию
+                winningLines.push(line);
                 break;
             }
         }
@@ -266,7 +257,7 @@ function setResult() {
         balance += totalWinAmount;
         updateBalanceDisplay();
         showWinMessage(totalWinAmount);
-        showWinEffects(winningLines); // Показываем эффекты
+        showWinEffects(winningLines);
     }
 }
 
@@ -274,9 +265,41 @@ function getRandomIcon() {
     return ICONS[Math.floor(Math.random() * ICONS.length)];
 }
 
-/**
- * @returns {number} 0.00 to 0.09 inclusive
- */
 function randomDuration() {
     return Math.floor(Math.random() * 10) / 100;
+}
+
+/**
+ * Запускает обновление статистики
+ */
+function startStatsUpdates() {
+    const onlinePlayers = document.querySelector('.online-players');
+    const lastWin = document.querySelector('.last-win');
+
+    function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function updateOnlinePlayers() {
+        const newValue = getRandomNumber(89, 140);
+        onlinePlayers.style.opacity = '0'; // Начинаем с невидимости для плавности
+        setTimeout(() => {
+            onlinePlayers.textContent = newValue;
+            onlinePlayers.style.opacity = '1'; // Появляемся с анимацией
+        }, 300); // Задержка для синхронизации с анимацией
+    }
+
+    function updateLastWin() {
+        const newValue = getRandomNumber(15, 180);
+        lastWin.style.opacity = '0';
+        setTimeout(() => {
+            lastWin.textContent = newValue;
+            lastWin.style.opacity = '1';
+        }, 300);
+    }
+
+    updateOnlinePlayers();
+    updateLastWin();
+    setInterval(updateOnlinePlayers, 60 * 1000); // Каждые 60 секунд
+    setInterval(updateLastWin, 20 * 1000); // Каждые 20 секунд
 }

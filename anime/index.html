@@ -18,6 +18,18 @@
         <span class="balance-value">10,000</span>
     </div>
 
+    <!-- Окно со статистикой -->
+    <div class="stats-window">
+        <div class="stats-row">
+            <span class="stats-label">Online players:</span>
+            <span class="stats-value online-players">100</span>
+        </div>
+        <div class="stats-row">
+            <span class="stats-label">Last win:</span>
+            <span class="stats-value last-win">50</span> <span class="tfs-label">TFS</span>
+        </div>
+    </div>
+
     <div class="window-border">
         <div class="window">
             <div class="outer-spacer"></div>
@@ -48,20 +60,20 @@
             <div class="bet-controls">
                 <button class="bet-btn minus">-</button>
                 <button class="bet-btn plus">+</button>
-                <button class="bet-btn min">MIN</button>
-                <button class="bet-btn max">MAX</button>
+                <div class="min-max-buttons">
+                    <button class="bet-btn max">MAX</button>
+                    <button class="bet-btn min">MIN</button>
+                </div>
             </div>
         </div>
 
-        <!-- Центральная часть: кнопка SPIN -->
+        <!-- Центральная часть: кнопка SPIN и AUTO SPIN/EXIT -->
         <div class="spin-section">
             <button onclick="spin(this)" class="spin-button">SPIN</button>
-        </div>
-
-        <!-- Правая часть: AUTO SPIN и EXIT -->
-        <div class="auto-exit-section">
-            <button class="auto-spin-button">AUTO SPIN</button>
-            <button class="exit-button">EXIT</button>
+            <div class="auto-exit-section">
+                <button class="auto-spin-button">AUTO SPIN</button>
+                <button class="exit-button">EXIT</button>
+            </div>
         </div>
     </div>
 </div>
